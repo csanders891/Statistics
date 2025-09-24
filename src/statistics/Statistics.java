@@ -56,8 +56,12 @@ public class Statistics {
 		
 		int midrange = midrange(data);
 		System.out.println(midrange);
+		
+		int standardDeviation = standardDeviation(data);
+		System.out.println(standardDeviation);
 	}
 	
+
 	static int mean(int Data[])
 	{
 		int sum = 0;
@@ -72,6 +76,7 @@ public class Statistics {
 	
 	static int median(int Data[])
 	{
+		//sort numbers from the smallest to the largest
 		for(int i = 0; i < Data.length; i++)
 		{
 			for(int j = i+1; j < Data.length; j++)
@@ -113,6 +118,7 @@ public class Statistics {
 	
 	static int mode(int Data[])
 	{
+		//returns -1 if no mode is found
 		int Mode = -1;
 		
 		int maxCount = 1;
@@ -128,6 +134,7 @@ public class Statistics {
 				count++;
 			}	
 			
+			//only counts numbers that appears the most
 			if(count > maxCount)
 			{
 				maxCount = count;
@@ -136,6 +143,7 @@ public class Statistics {
 				modes.add(Mode);
 			}
 			
+			//another mode has been found
 			else if(count == maxCount && count > 1)
 			{
 					Mode = Data[i];	
@@ -153,7 +161,7 @@ public class Statistics {
 			return Mode;		
 		} 
 		
-		//if there is only 1 mode
+		//if there is only 1 mode or no mode
 		else 
 		{
 			System.out.print("Mode: ");
@@ -200,5 +208,34 @@ public class Statistics {
 		
 		System.out.print("Midrange: ");
 		return midrange;
+	}
+	
+	private static int standardDeviation(int[] Data) 
+	{	
+		//find the mean
+		int sum = 0;
+		for(int i = 0; i < Data.length; i++)
+			sum+=Data[i];
+		
+		int mean = sum/Data.length;
+	
+		//add each data point to the mean
+		for(int i = 0; i < Data.length; i++)
+			Data[i]+=mean;
+		
+		//square the resulting numbers
+		for(int i = 0; i < Data.length; i++)
+			Math.pow(Data[i], 2);
+		
+		//add each number
+		int p = 0;
+		
+		for(int i = 0; i < Data.length; i++)
+			p+=Data[i];
+		
+		int StandardDeviation = (int) Math.sqrt(p/Data.length);
+		
+		System.out.print("Standard deviation: ");
+		return StandardDeviation;
 	}
 }
